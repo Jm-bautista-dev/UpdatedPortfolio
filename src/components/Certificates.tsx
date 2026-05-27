@@ -11,55 +11,57 @@ interface CertificateItem {
   pdfUrl: string;
 }
 
+const BASE_PATH = import.meta.env.BASE_URL || '/';
+
 const certificates: CertificateItem[] = [
   {
     id: 1,
     title: "AWS Services Overview for IT Professionals",
     issuer: "Amazon Web Services (Coursera)",
     date: "Dec 5, 2025",
-    pdfUrl: "/certificates/AWS Services Overview for IT Professionals.pdf",
+    pdfUrl: `${BASE_PATH}certificates/AWS Services Overview for IT Professionals.pdf`,
   },
   {
     id: 2,
     title: "Getting Started with Data Analytics on AWS",
     issuer: "Amazon Web Services (Coursera)",
     date: "Nov 19, 2025",
-    pdfUrl: "/certificates/Getting Started with Data Analytics on AWS.pdf",
+    pdfUrl: `${BASE_PATH}certificates/Getting Started with Data Analytics on AWS.pdf`,
   },
   {
     id: 3,
     title: "CCS Summit Bridging the Digital Divide",
     issuer: "Laguna University",
     date: "Apr 14, 2025",
-    pdfUrl: "/certificates/Bridging the  Digital Divide.pdf",
+    pdfUrl: `${BASE_PATH}certificates/Bridging the  Digital Divide.pdf`,
   },
   {
     id: 4,
     title: "Hack Proof Mastering Cyber Security Essentials",
     issuer: "Laguna University",
     date: "Apr 14, 2025",
-    pdfUrl: "/certificates/Hack Proof Mastering Cyber Security Essentials.pdf",
+    pdfUrl: `${BASE_PATH}certificates/Hack Proof Mastering Cyber Security Essentials.pdf`,
   },
   {
     id: 5,
     title: "Introduction to DevOps",
     issuer: "Laguna University",
     date: "Jun 4, 2025",
-    pdfUrl: "/certificates/Introduction to DevOps.pdf",
+    pdfUrl: `${BASE_PATH}certificates/Introduction to DevOps.pdf`,
   },
   {
     id: 6,
     title: "New Trends and Technologies, New Platforms used in the Industry",
     issuer: "Laguna University",
     date: "Jun 4, 2025",
-    pdfUrl: "/certificates/OneCCS Connected Minds.pdf",
+    pdfUrl: `${BASE_PATH}certificates/OneCCS Connected Minds.pdf`,
   },
   {
     id: 7,
     title: "Hands-on with AWS for IT Professionals",
     issuer: "Amazon Web Services (Coursera)",
     date: "Jun 4, 2025",
-    pdfUrl: "/certificates/Hands-on with AWS for IT Professionals.pdf",
+    pdfUrl: `${BASE_PATH}certificates/Hands-on with AWS for IT Professionals.pdf`,
   }
 ];
 

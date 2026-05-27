@@ -57,7 +57,7 @@ const About = () => {
                 
                 <div className="w-full h-full bg-bg-card-hover overflow-hidden rounded-xl relative">
                   <img
-                    src="/images/turn.jpg"
+                    src={`${import.meta.env.BASE_URL}images/turn.jpg`}
                     alt="Jhon Michael Profile"
                     className="w-full h-full object-cover grayscale brightness-90 dark:brightness-75 group-hover:brightness-100 group-hover:scale-102 transition-all duration-[1.5s]"
                   />
