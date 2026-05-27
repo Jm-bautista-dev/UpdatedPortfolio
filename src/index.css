@@ -1,0 +1,218 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", "Poppins", sans-serif;
+  
+  --color-bg-main: var(--bg-main);
+  --color-bg-card: var(--bg-card);
+  --color-bg-card-hover: var(--bg-card-hover);
+  --color-text-main: var(--text-main);
+  --color-text-muted: var(--text-muted);
+  --color-border-main: var(--border-main);
+  --color-border-subtle: var(--border-subtle);
+  --color-accent: var(--accent);
+  --color-accent-inverse: var(--accent-inverse);
+  --color-accent-hover: var(--accent-hover);
+}
+
+:root {
+  /* Crisp, sophisticated Alabaster & Charcoal editorial theme */
+  --bg-main: #f9f9fb;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f3f3f6;
+  --text-main: #0c0c0e;
+  --text-muted: #5e5e6a;
+  --border-main: rgba(0, 0, 0, 0.08);
+  --border-subtle: rgba(0, 0, 0, 0.04);
+  --accent: #000000;
+  --accent-inverse: #ffffff;
+  --accent-hover: #1e1e22;
+  --hero-glow: radial-gradient(circle, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0.005) 50%, transparent 70%);
+  --stardust-opacity: 0.15;
+  /* Light mode glow accents */
+  --glow-cyan: rgba(6, 182, 212, 0.08);
+  --glow-blue: rgba(59, 130, 246, 0.06);
+  --section-surface: rgba(255, 255, 255, 0.6);
+  --section-border: rgba(0, 0, 0, 0.06);
+}
+
+.dark {
+  /* Deep, luxurious cosmic stardust dark theme */
+  --bg-main: #030712;
+  --bg-card: #09090b;
+  --bg-card-hover: #121215;
+  --text-main: #f4f4f5;
+  --text-muted: #71717a;
+  --border-main: rgba(255, 255, 255, 0.10);
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --accent: #ffffff;
+  --accent-inverse: #000000;
+  --accent-hover: #e4e4e7;
+  --hero-glow: radial-gradient(circle, rgba(6, 182, 212, 0.08) 0%, rgba(59, 130, 246, 0.04) 50%, transparent 70%);
+  --stardust-opacity: 0.45;
+  /* Dark mode glow accents */
+  --glow-cyan: rgba(6, 182, 212, 0.15);
+  --glow-blue: rgba(59, 130, 246, 0.12);
+  --section-surface: rgba(9, 9, 11, 0.7);
+  --section-border: rgba(255, 255, 255, 0.06);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-bg-main text-text-main font-sans antialiased transition-colors duration-500;
+    overflow-x: hidden;
+  }
+}
+
+/* ─── Floating Glass HUD (used by Navbar) ─── */
+.glass {
+  @apply bg-bg-card/70 backdrop-blur-xl border-b border-border-subtle;
+}
+
+/* ─── Global Background Continuity Layer ─── */
+.site-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  transition: background 0.6s ease, opacity 0.6s ease;
+}
+
+/* Light mode: soft warm vignette */
+.site-bg {
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(6, 182, 212, 0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 90%, rgba(59, 130, 246, 0.04) 0%, transparent 60%);
+}
+
+/* Dark mode: deep cosmic gradient */
+.dark .site-bg {
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(6, 182, 212, 0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 90%, rgba(59, 130, 246, 0.08) 0%, transparent 60%),
+    linear-gradient(160deg, #030712 0%, #0f172a 60%, #030712 100%);
+}
+
+/* ─── Hero section: cosmic dark gradient ─── */
+#home {
+  transition: background 0.5s ease;
+}
+.dark #home {
+  background: linear-gradient(155deg, #050816 0%, #0d1224 60%, #050816 100%) !important;
+}
+
+/* ─── Section Panel system ─── */
+/* Adds a consistent "floating panel in space" feel to every section */
+.section-panel {
+  position: relative;
+  z-index: 1;
+}
+
+/* Divider between sections - soft fade line */
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    var(--border-main) 30%,
+    var(--border-main) 70%,
+    transparent 100%
+  );
+  opacity: 0.6;
+}
+
+/* ─── Glow link accent (used on active nav link) ─── */
+.glow-underline {
+  box-shadow: 0 0 8px rgba(6, 182, 212, 0.6), 0 0 16px rgba(6, 182, 212, 0.2);
+}
+
+/* ─── Scroll-reveal animation utility ─── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  animation: fadeInUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ─── Scrollbar utilities ─── */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ─── Animated Border Utility via Houdini ─── */
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes borderRotate {
+  0% { --angle: 0deg; }
+  100% { --angle: 360deg; }
+}
+
+.animated-border-wrapper,
+.animated-border-wrapper-sm {
+  position: relative;
+  padding: 1px;
+  border-radius: 24px;
+  background: transparent;
+  isolation: isolate;
+}
+
+.animated-border-wrapper::before,
+.animated-border-wrapper-sm::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: transparent;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.animated-border-wrapper:hover::before,
+.animated-border-wrapper-sm:hover::before {
+  opacity: 1;
+  background: conic-gradient(
+    from var(--angle),
+    transparent 35%,
+    rgba(6, 182, 212, 0.4) 48%,
+    rgba(59, 130, 246, 0.4) 52%,
+    transparent 65%
+  );
+  animation: borderRotate 4s linear infinite;
+}
+
+/* Dark mode overrides for subtle/brighter look */
+.dark .animated-border-wrapper:hover::before,
+.dark .animated-border-wrapper-sm:hover::before {
+  background: conic-gradient(
+    from var(--angle),
+    transparent 35%,
+    rgba(6, 182, 212, 0.6) 48%,
+    rgba(59, 130, 246, 0.6) 52%,
+    transparent 65%
+  );
+}
+
