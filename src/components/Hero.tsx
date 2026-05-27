@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'fram
 import { ArrowRight, Mail } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { useTheme } from '../context/ThemeContext';
+import heroImg from '../assets/hero.png';
 
 const SceneCanvas = lazy(() => import('./SceneCanvas'));
 
@@ -222,17 +223,28 @@ const Hero = () => {
             </div>
           </motion.div>
 
-          {/* Column B (Right Side - 3D SceneCanvas) */}
-          <div className="hidden lg:block lg:col-span-5 h-[550px] relative w-full select-none">
-            <Suspense 
-              fallback={
-                <div className="w-full h-full flex items-center justify-center text-[9px] uppercase tracking-[0.3em] font-bold text-text-muted/60">
-                  Initializing 3D Vector Space...
-                </div>
-              }
-            >
-              <SceneCanvas theme={theme} />
-            </Suspense>
+          {/* Column B (Right Side - 3D SceneCanvas / Mobile Static Fallback) */}
+          <div className="lg:col-span-5 h-[320px] lg:h-[550px] relative w-full select-none flex items-center justify-center">
+            {/* Mobile/Tablet Fallback Image (when 3D canvas is hidden) */}
+            <div className="absolute inset-0 lg:hidden flex items-center justify-center p-4">
+              <img 
+                src={heroImg} 
+                alt="Developer Vector Core" 
+                className="w-full h-full object-contain max-h-[280px] opacity-90 filter drop-shadow-[0_0_20px_rgba(6,182,212,0.15)] dark:drop-shadow-[0_0_20px_rgba(255,255,255,0.05)]" 
+              />
+            </div>
+            {/* Desktop 3D Canvas */}
+            <div className="hidden lg:block w-full h-full">
+              <Suspense 
+                fallback={
+                  <div className="w-full h-full flex items-center justify-center text-[9px] uppercase tracking-[0.3em] font-bold text-text-muted/60">
+                    Initializing 3D Vector Space...
+                  </div>
+                }
+              >
+                <SceneCanvas theme={theme} />
+              </Suspense>
+            </div>
           </div>
 
         </div>
